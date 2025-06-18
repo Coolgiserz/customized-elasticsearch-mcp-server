@@ -1,0 +1,15 @@
+services:
+  es_news_mcp_server:
+    image: customized-elasticsearch-mcp-server:latest
+    container_name: es_news_mcp_server
+    command: /app/.venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
+    working_dir: /app
+    env_file:
+      - .env
+    ports:
+      - "28000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/healthcheck"]
+      interval: 30s
+      timeout: 15s
+      retries: 3

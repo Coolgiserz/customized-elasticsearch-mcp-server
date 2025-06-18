@@ -1,0 +1,24 @@
+[project]
+name = "customized-elasticsearch-mcp-server"
+version = "0.1.0"
+description = "ES MCP server customized by fastmcp"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "elasticsearch==8.15",
+    "fastmcp==2.8.1",
+    "uvicorn>=0.20.0",
+    "python-dotenv>=0.20.0",
+    "pydantic>=1.10.0",
+    "fastapi>=0.115.12",
+    "aiohttp>=3.12.12",
+    "pytest-asyncio>=1.0.0",
+    "structlog>=25.4.0",
+    "starlette-prometheus>=0.10.0",
+    "itsdangerous>=2.2.0",
+    "gunicorn>=23.0.0",
+]
+
+[[tool.uv.index]]
+url = "http://mirrors.aliyun.com/pypi/simple"
+default = true
