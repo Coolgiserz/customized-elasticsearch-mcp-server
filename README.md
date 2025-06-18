@@ -61,7 +61,7 @@ cp env.sample .env
 
 1. 克隆项目并进入目录：
    ```bash
-   git clone <仓库地址>
+   git clone https://github.com/Coolgiserz/customized-elasticsearch-mcp-server
    cd customized-elasticsearch-mcp-server
    ```
 2. 创建并激活虚拟环境：
