@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pycache__/
+*.pytest_cache/
+*.coverage
+.coverage.*
+.cache
+.pytest_cache/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+.venv/
+env/
+venv/
+
+*.log
+*.tmp
+*.bak
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
