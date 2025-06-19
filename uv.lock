@@ -230,6 +230,7 @@ dependencies = [
     { name = "pydantic" },
     { name = "pytest-asyncio" },
     { name = "python-dotenv" },
+    { name = "redis" },
     { name = "starlette-prometheus" },
     { name = "structlog" },
     { name = "uvicorn" },
@@ -246,6 +247,7 @@ requires-dist = [
     { name = "pydantic", specifier = ">=1.10.0" },
     { name = "pytest-asyncio", specifier = ">=1.0.0" },
     { name = "python-dotenv", specifier = ">=0.20.0" },
+    { name = "redis", specifier = ">=6.2.0" },
     { name = "starlette-prometheus", specifier = ">=0.10.0" },
     { name = "structlog", specifier = ">=25.4.0" },
     { name = "uvicorn", specifier = ">=0.20.0" },
@@ -796,6 +798,15 @@ source = { registry = "http://mirrors.aliyun.com/pypi/simple" }
 sdist = { url = "http://mirrors.aliyun.com/pypi/packages/f3/87/f44d7c9f274c7ee665a29b885ec97089ec5dc034c7f3fafa03da9e39a09e/python_multipart-0.0.20.tar.gz", hash = "sha256:8dd0cab45b8e23064ae09147625994d090fa46f5b0d1e13af944c331a7fa9d13" }
 wheels = [
     { url = "http://mirrors.aliyun.com/pypi/packages/45/58/38b5afbc1a800eeea951b9285d3912613f2603bdf897a4ab0f4bd7f405fc/python_multipart-0.0.20-py3-none-any.whl", hash = "sha256:8a62d3a8335e06589fe01f2a3e178cdcc632f3fbe0d492ad9ee0ec35aab1f104" },
+]
+
+[[package]]
+name = "redis"
+version = "6.2.0"
+source = { registry = "http://mirrors.aliyun.com/pypi/simple" }
+sdist = { url = "http://mirrors.aliyun.com/pypi/packages/ea/9a/0551e01ba52b944f97480721656578c8a7c46b51b99d66814f85fe3a4f3e/redis-6.2.0.tar.gz", hash = "sha256:e821f129b75dde6cb99dd35e5c76e8c49512a5a0d8dfdc560b2fbd44b85ca977" }
+wheels = [
+    { url = "http://mirrors.aliyun.com/pypi/packages/13/67/e60968d3b0e077495a8fee89cf3f2373db98e528288a48f1ee44967f6e8c/redis-6.2.0-py3-none-any.whl", hash = "sha256:c8ddf316ee0aab65f04a11229e94a64b2618451dab7a67cb2f77eb799d872d5e" },
 ]
 
 [[package]]

@@ -6,10 +6,27 @@ services:
     working_dir: /app
     env_file:
       - .env
+    volumes:
+      - ./volumes:/volumes
     ports:
       - "28000:8000"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/healthcheck"]
+      interval: 30s
+      timeout: 15s
+      retries: 3
+    restart: always
+    depends_on:
+      redis:
+        condition: service_healthy
+  redis:
+    image: swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/library/redis:7.4
+    container_name: es_news_mcp_server_redis
+    ports:
+      - "6379"
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
       interval: 30s
       timeout: 15s
       retries: 3
