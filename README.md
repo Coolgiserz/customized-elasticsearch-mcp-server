@@ -174,7 +174,6 @@ dmake build     # 构建 Docker 镜像
 - 引入基于 JWT 或 OAuth2 的更安全鉴权机制
 - 支持多进程/多实例共享会话（如使用 Redis Session Store）
 - 优化 Elasticsearch 查询性能，添加缓存层（Redis）
-- 集成请求限流和熔断策略，以防止高频或恶意请求
 - 增加端到端集成测试覆盖，并配置 CI/CD 流水线
 - 支持 ES 聚合查询与热门关键词统计功能
 - 提供 Swagger UI 或 Postman 集合示例
