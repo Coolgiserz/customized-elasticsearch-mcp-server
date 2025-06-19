@@ -1,9 +1,11 @@
 from typing import List
 from fastmcp import FastMCP, Context
+from fastmcp.server.http import Middleware
 from pydantic import Field
 import contextlib
 from .services.news_service import NewsService
 from .clients.elastic_client import AsyncElasticClient
+from .middlewares.audit import AuditMiddleware
 import structlog
 logger = structlog.get_logger(__name__)
 
@@ -13,7 +15,10 @@ class NewsMCP(FastMCP):
     pass
 
 def create_http_app(mcp):
-    mcp_app = mcp.http_app("/es-news-mcp")
+    middlewares = [
+        Middleware(AuditMiddleware)
+    ]
+    mcp_app = mcp.http_app("/es-news-mcp", middleware=middlewares)
     return mcp_app
 app_services = {}
 

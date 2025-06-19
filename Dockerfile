@@ -16,7 +16,7 @@ COPY pyproject.toml uv.lock /app
 ENV UV_PYPI_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
 # 安装 Python 依赖
 # 优先使用 uv（如有 uv.lock），否则用 pip 安装 requirements.txt
-RUN pip install -i https://mirrors.aliyun.com/pypi/simple uv  && uv sync
+RUN uv sync
 
 # 复制项目文件到容器
 COPY ./src/ /app

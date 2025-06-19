@@ -6,6 +6,7 @@
 - 支持关键词搜索、二次过滤、按 ID 查询
 - 基于 FastMCP 提供 MCP 协议工具：`search_news`、`search_news_with_secondary_filter`、`read_single_news`
 - Prometheus 监控集成（`starlette_prometheus`）
+- 基于 Redis 的服务端 Session 存储（`RedisSessionMiddleware`）
 - Docker 与 Docker Compose 支持
 - 包含单元测试和集成测试
 ![](images/mcp-server.png)
