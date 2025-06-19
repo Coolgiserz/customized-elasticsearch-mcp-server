@@ -22,7 +22,6 @@ jobs:
         run: |
           pip install sphinx sphinx-rtd-theme sphinx-autodoc-typehints
           sphinx-apidoc -o docs/source src/news_mcp_server
-          make -C docs html
 
       - name: Upload docs artifact
         uses: awalsh128/cache-apt-pkgs-action@v1.4.3
