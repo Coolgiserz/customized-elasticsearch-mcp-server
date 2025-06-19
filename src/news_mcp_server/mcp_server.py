@@ -6,10 +6,10 @@ import contextlib
 from .services.news_service import NewsService
 from .clients.elastic_client import AsyncElasticClient
 from .middlewares.audit import AuditMiddleware
-import structlog
-logger = structlog.get_logger(__name__)
-
+from .utils.logger import logger
 logger.info("News MCP module")
+
+
 class NewsMCP(FastMCP):
     """FastMCP server with authentication middleware."""
     pass
