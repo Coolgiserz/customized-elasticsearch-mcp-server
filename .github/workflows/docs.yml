@@ -18,11 +18,11 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install documentation generator
-        run: pip install pdoc
-
-      - name: Generate API documentation
-        run: pdoc --html src/news_mcp_server --output-dir docs
+      - name: Generate HTML docs with Sphinx
+        run: |
+          pip install sphinx sphinx-rtd-theme sphinx-autodoc-typehints
+          sphinx-apidoc -o docs/source src/news_mcp_server
+          make -C docs html
 
       - name: Upload docs artifact
         uses: awalsh128/cache-apt-pkgs-action@v1.4.3
