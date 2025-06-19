@@ -1,0 +1,31 @@
+name: Generate Docs
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install documentation generator
+        run: pip install pdoc
+
+      - name: Generate API documentation
+        run: pdoc --html src/news_mcp_server --output-dir docs
+
+      - name: Upload docs artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: api-docs
+          path: docs 
