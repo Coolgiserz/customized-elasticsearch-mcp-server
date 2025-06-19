@@ -10,7 +10,11 @@ class ApplicationSettings(BaseModel):
     CORS_HEADERS: list = ["*"]
     CORS_ALLOW_CREDENTIALS: bool = True
     API_KEY: str | None = os.getenv("NEWS_MCP_API_KEY")
-    SESSION_SECREY_KEY: str = os.getenv("SESSION_SECREY_KEY")
+    SESSION_SECRET_KEY: str = os.getenv("SESSION_SECRET_KEY")
+    REDIS_URL: str = os.getenv("REDIS_URL", "redis://redis:6379/0")
+    # IP 限流配置
+    RATE_LIMIT_MAX: int = int(os.getenv("RATE_LIMIT_MAX", 100))  # 单个 IP 在时间窗口内最大请求数
+    RATE_LIMIT_WINDOW: int = int(os.getenv("RATE_LIMIT_WINDOW", 60))  # 限流窗口时长（秒）
     TRANSPORT: str = "streamable-http"
 
 

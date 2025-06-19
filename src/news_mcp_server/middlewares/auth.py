@@ -1,10 +1,10 @@
 # @Author: Zhu Guowei
 # @Date: 2025/6/17
 # @Function:
-from starlette.middleware.authentication import AuthenticationMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import JSONResponse
+from starlette import status
 from structlog import get_logger
 logger = get_logger(__name__)
 import os
@@ -20,24 +20,26 @@ class SimpleAuthMiddleware(BaseHTTPMiddleware):
         # 如果未配置 API_KEY，且允许跳过，则直接放行（便于开发环境）
 
         host = request.headers.get("HOST")
-        logger.info(f"host: {host}, {request.headers}")
+        headers = request.headers
+        auth_header = headers.get("authorization")
+
         for h in ALLOW_HOSTS:
             if h in host:
                 return await call_next(request)
         if not self.api_key:
-            logger.info(f"request.url: {request.url}")
             return await call_next(request)
 
         # 获取 Authorization头
-        auth_header = request.headers.get("authorization")
-        logger.info(f"url: {request.url}, query_params: {request.query_params}")
-        logger.info(f"auth-header: {auth_header}")
+        logger.info(f"simple-auth", host=host, header=auth_header)
+
         if not auth_header or not auth_header.lower().startswith("bearer "):
-            return JSONResponse({"detail": "Bearer Token Not Provided"}, status_code=401)
+            logger.warning(f"simple-auth", host=host, detail="Bearer Token Not Provided", header=auth_header)
+            return JSONResponse({"detail": "Bearer Token Not Provided"}, status_code=status.HTTP_401_UNAUTHORIZED)
 
         token = auth_header[7:].strip()
         if token != self.api_key:
-            return JSONResponse({"detail": "Invalid Token"}, status_code=403)
+            logger.warning(f"simple-auth", host=host, detail="Invalid Token", token=token, header=auth_header)
+            return JSONResponse({"detail": "Invalid Token"}, status_code=status.HTTP_403_FORBIDDEN)
 
         # 认证通过，继续处理请求
         return await call_next(request)
