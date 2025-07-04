@@ -51,3 +51,30 @@ class NewsService:
             date_to=date_to,
         )
         return [NewsBaseItem(**item) for item in items]
+
+    async def search_topic_news(
+            self,
+            primary_queries: List[str],
+            secondary_query: List[str],
+            max_results: int = 10,
+            sources: Optional[str] = None,
+            search_word=None,
+            date_from: Optional[str] = None,
+            date_to: Optional[str] = None
+    ) -> dict:
+        """
+        新功能：按多个主关键词(组)与次关键词组合(A&D|B&D|...)搜索新闻，并返回 NewsBaseItem 列表
+        """
+        items = await self.client.search_topic_news(
+            primary_queries=primary_queries,
+            secondary_query=secondary_query,
+            sources=sources,
+            max_results=max_results,
+            search_word=search_word,
+            date_from=date_from,
+            date_to=date_to
+        )
+        return {
+            "total": items.total,
+            "data": [NewsBaseItem(**item) for item in items.data]
+        }
