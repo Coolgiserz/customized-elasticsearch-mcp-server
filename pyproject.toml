@@ -18,6 +18,7 @@ dependencies = [
     "itsdangerous>=2.2.0",
     "gunicorn>=23.0.0",
     "redis>=6.2.0",
+    "tenacity>=9.1.2",
 ]
 
 [[tool.uv.index]]
