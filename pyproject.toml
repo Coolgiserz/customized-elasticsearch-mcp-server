@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "elasticsearch==8.15",
-    "fastmcp==2.8.1",
+    "fastmcp==2.10",
     "uvicorn>=0.20.0",
     "python-dotenv>=0.20.0",
     "pydantic>=1.10.0",
