@@ -111,4 +111,59 @@ async def read_single_news( ctx: Context,
     return news_item.model_dump()
 
 
+@mcp.tool(
+    name="search_topic_news",
+    description="根据多个主关键词列表、筛选词列表(组)、数据源列表以 OR 关系批量查询新闻，支持时间范围筛选. "
+                "基本查询逻辑：<label1>&<filtered_words>|<label2>&<filtered_words>|<source1>&<filtered_words>|...|"
+                "允许在基本查询逻辑之上再搜索"
+)
+async def search_topic_news(
+    ctx: Context,
+    primary_queries: List[str]= Field(
+        description="【必填】根据多个主关键词列表，系统返回包含主关键词与次关键词组合，所有组合的结果以OR关系连接的新闻"
+    ),
+    secondary_querys: List[str] = Field(default_factory=list,
+        description="筛选词，将与每个主关键词进行 AND 运算"
+
+    ),
+    sources: List[str] = Field(default_factory=list,
+        description="数据源列表，将与每个主关键词进行 AND 运算"
+    ),
+    search_word: str = Field(default="", description="搜索词"),
+    max_results: int = Field(
+        default=15,
+        description="【可选】希望返回的新闻数量，取值1-100，默认10"
+    ),
+    date_from: str = Field(
+        default="",
+        description="【可选】起始发布日期，格式 YYYY-MM-DD"
+    ),
+    date_to: str = Field(
+        default="",
+        description="【可选】结束发布日期，格式 YYYY-MM-DD"
+    )
+) -> List[dict]:
+    """MCP 工具：按多个主关键词与次关键词组合(A&D|B&D|...)批量搜索新闻"""
+    logger.info(f"Call search_topic_news", primary_queries=primary_queries,secondary_query=secondary_querys, ctx=ctx.request_context.request['state'])
+    if isinstance(primary_queries, str) and len(primary_queries.strip())>0:
+        primary_queries = [primary_queries]
+    if len(primary_queries) == 0:
+        return []
+    if isinstance(secondary_querys, str) and len(secondary_querys.strip())>0:
+        secondary_querys = [secondary_querys]
+    if isinstance(sources, str) and len(sources.strip())>0:
+        sources = [sources]
+    news_items = await app_services["news_service"].search_topic_news(
+        primary_queries=primary_queries,
+        secondary_query=secondary_querys,
+        max_results=max_results,
+        sources=sources,
+        search_word=search_word,
+        date_from=date_from,
+        date_to=date_to
+    )
+    logger.info(f"Call search_topic_news", total=news_items.get("total"), primary_queries_count=len(primary_queries),secondary_query_count=len(secondary_querys), ctx=ctx.request_context.request['state'])
+    return [item.model_dump() for item in news_items.get("data")]
+
+
 mcp_app = create_http_app(mcp)

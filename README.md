@@ -3,7 +3,7 @@
 基于 Python `FastMCP` 和 `FastAPI` 的 自定义Elasticsearch MCP 服务Demo。
 
 ## 特性
-- 支持关键词搜索、二次过滤、按 ID 查询
+- 支持关键词搜索、二次过滤、按 ID 查询、复杂筛选词查询逻辑
 - 基于 FastMCP 提供 MCP 协议工具：`search_news`、`search_news_with_secondary_filter`、`read_single_news`
 - Prometheus 监控集成（`starlette_prometheus`）
 - 基于 Redis 的服务端 Session 存储（`RedisSessionMiddleware`）
